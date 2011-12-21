@@ -1,0 +1,7 @@
+source 'http://rubygems.org'
+gem 'sinatra'
+gem 'unicorn'
+gem 'eventmachine'
+gem 'em-websocket'
+gem 'sprockets'
+gem 'haml'
