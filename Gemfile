@@ -4,6 +4,8 @@ gem 'sinatra'
   gem 'sinatra-contrib' 
   gem 'shotgun'
   gem 'sprockets'
+  gem 'coffee-script'
+  gem 'sass'
   gem 'haml'
   gem 'unicorn'
 # Websocket
