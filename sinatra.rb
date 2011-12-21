@@ -10,6 +10,7 @@ disable :static
 # View settings
 set :views, 'app/views'
 set :haml, 
+  :ugly   => true,
   :format => :html5, 
   :layout => :'templates/application'
 # Sessions
