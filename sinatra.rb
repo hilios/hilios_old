@@ -2,12 +2,14 @@ require 'rubygems'
 require 'bundler/setup'
 require 'sprockets'
 require 'sinatra'
+require 'sinatra/contrib/all'
+require 'haml'
 # Environment
 ENV['RACK_ENV'] ||= :development
 # Some settings
 set :root,  File.expand_path('../', __FILE__)
 set :views, 'app/views'
-set :haml, :format => :html5
+set :haml, :format => :html5, :layout => :'templates/application'
 # Sessions
 enable :sessions
 set :session_secret, '1Gikx4OTdoQp9OLjxfK76NBm065IzPkYTAirE8iUT5wgXAIW30dbjxOr5riSvRrKEQ7JxDsk7Kfz363Vif2erbgSZt3Xjh6hs8ZX8cO6X0ntzYYhgYzUmedQG8WielBh'

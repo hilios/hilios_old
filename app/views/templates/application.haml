@@ -1,0 +1,13 @@
+!!! 5
+%html{:lang => 'pt'}
+  %head
+    %meta{:charset => 'utf-8'}
+    - title = yield_content(:title)
+    - title = '%s' if title.empty?
+    %title= title % 'edson.hilios'
+    %link{:rel => 'stylesheet', :type => 'text/css', :href => asset_path('application.css')}
+    = yield_content(:stylesheet)
+  %body
+    = yield
+    %script{:src => asset_path('application.js')}
+    = yield_content(:javascript)

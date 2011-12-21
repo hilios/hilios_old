@@ -1,10 +1,11 @@
 source 'http://rubygems.org'
 # Webapp
 gem 'sinatra'
-gem 'shotgun'
-gem 'sprockets'
-gem 'haml'
-gem 'unicorn'
+  gem 'sinatra-contrib' 
+  gem 'shotgun'
+  gem 'sprockets'
+  gem 'haml'
+  gem 'unicorn'
 # Websocket
 gem 'eventmachine'
 gem 'em-websocket'
