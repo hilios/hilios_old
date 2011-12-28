@@ -1,4 +1,3 @@
-# The call of run method is inside the required file
 require ::File.expand_path('../sinatra',  __FILE__)
 
 map '/assets' do
