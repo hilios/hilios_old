@@ -1,17 +1,23 @@
 source 'http://rubygems.org'
 gem 'rake'
-# Webapp
-gem 'sinatra'
+
+group :webapp do
+  gem 'i18n'
+  gem 'sinatra'
   gem 'sinatra-contrib' 
+  gem 'data_mapper'
   gem 'shotgun'
   gem 'sprockets'
   gem 'coffee-script'
   gem 'sass'
   gem 'haml'
   gem 'unicorn'
-# Websocket
-gem 'eventmachine'
-gem 'em-websocket'
+end
+
+group :websocket do
+  gem 'eventmachine'
+  gem 'em-websocket'
+end
 
 group :test do
   gem 'rspec'
