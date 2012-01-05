@@ -12,7 +12,7 @@ set :views, 'app/views'
 set :haml, 
   :ugly   => true,
   :format => :html5, 
-  :layout => :'templates/application'
+  :layout => :'layouts/application'
 # Sessions
 enable :sessions
 set :session_secret, '1Gikx4OTdoQp9OLjxfK76NBm065IzPkYTAirE8iUT5wgXAIW30dbjxOr5riSvRrKEQ7JxDsk7Kfz363Vif2erbgSZt3Xjh6hs8ZX8cO6X0ntzYYhgYzUmedQG8WielBh'
