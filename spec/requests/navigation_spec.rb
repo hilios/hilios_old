@@ -1,4 +1,4 @@
-# require 'spec_helper'
+require 'spec_helper'
 
 describe "Navigation", :type => :request do
   context "all links in all pages should work" do
