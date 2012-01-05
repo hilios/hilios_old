@@ -1,2 +1,2 @@
-//= vendor/reset.css
-//= require_tree .
+//= require vendor/reset.css
+//= require application.css.sass
