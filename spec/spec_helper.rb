@@ -5,14 +5,20 @@ require 'rspec'
 require 'capybara/rspec'
 require 'database_cleaner'
 
+disable :run
+set :environment, :test
+
+def app
+  Sinatra::Application
+end
+
+Capybara.app = app
 # Set the capybara js driver
 # Capybara.javascript_driver = :webkit
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[File.expand_path('support/**/*.rb',  File.dirname(__FILE__))].each {|f| require f}
-
-set :environment, :test
 
 RSpec.configure do |config|
   config.include Rack::Test::Methods
@@ -22,8 +28,4 @@ RSpec.configure do |config|
     # Ensure that the test db is clean
     # DatabaseCleaner.clean_with :truncation
   end
-end
-
-def app
-  Sinatra::Application
 end

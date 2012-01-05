@@ -1,6 +1,6 @@
 # require 'spec_helper'
 
-describe "Navigation" do
+describe "Navigation", :type => :request do
   context "all links in all pages should work" do
     collected_paths, visited_paths = ['/'], []
     begin
@@ -8,11 +8,11 @@ describe "Navigation" do
       collected_paths.delete_at(0)
       it "visiting `#{path}`" do
         visit path
-        # visited_paths << path
-        # # Collect all links in this page
-        # all('a').each do |a| 
-        #   collected_paths << a[:href] unless visited_paths.include? a[:href]
-        # end
+        visited_paths << path
+        # Collect all links in this page
+        all('a').each do |a| 
+          collected_paths << a[:href] unless visited_paths.include? a[:href]
+        end
       end
     end until collected_paths.empty?
   end
