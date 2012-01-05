@@ -23,6 +23,7 @@ group :test do
   gem 'rspec'
   gem 'launchy'
   gem 'capybara'
+  # gem 'capybara-webkit'
   gem 'shoulda-matchers'
   gem 'database_cleaner'
   gem 'factory_girl'
