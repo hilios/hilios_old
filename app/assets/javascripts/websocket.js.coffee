@@ -7,3 +7,4 @@ ws.onmessage = (event)->
 $(document).mousemove (event)->
   x = event.pageX
   y = event.pageY
+
