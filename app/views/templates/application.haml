@@ -6,18 +6,8 @@
     - title = '%s' if title.empty?
     %title= title % 'edson.hilios'
     %link{:rel => 'stylesheet', :type => 'text/css', :href => asset_path('application.css')}
-    = yield_content(:stylesheet)
+    = yield_content(:stylesheets)
   %body
-    #container.container_12
-      %header
-        .grid_3
-          %h6
-            edson.hilios
-        .grid_9
-      %nav
-        
-      #content.clear
-        = yield
-      %footer
+    = yield
     %script{:src => asset_path('application.js')}
-    = yield_content(:javascript)
+    = yield_content(:javascripts)
