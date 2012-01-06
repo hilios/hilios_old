@@ -1,6 +1,9 @@
 # On doc ready
 $ ->
-  DEG_TO_RAD =  Math.PI / 180
+  degToRad = (degrees)->
+    degrees * Math.PI / 180
+  getAngle = (x, y)->
+    Math.tan(y / x)
   # User variables
   x = 0
   y = 0
@@ -14,7 +17,7 @@ $ ->
     far:        1000
   # Camera
   camera = new THREE.PerspectiveCamera(settings.viewAngle, settings.aspect, settings.near, settings.far)
-  camera.rotation.x = -45 * DEG_TO_RAD
+  camera.rotation.x = degToRad(-45)
   camera.position.y = 300
   camera.position.z = 300
   # Scene
@@ -35,18 +38,18 @@ $ ->
       switch(coord)
         when 'x'
           line.position.x = length / 2
-          line.rotation.z = 90 * DEG_TO_RAD
+          line.rotation.z = degToRad(90)
           arrow.position.x = length
           arrow.rotation.z = line.rotation.z
         when 'y'
           line.position.y = length / 2
-          line.rotation.z = 180 * DEG_TO_RAD
+          line.rotation.z = degToRad(180)
           arrow.position.y = length
           arrow.rotation.z = line.rotation.z
         when 'z'
           line.position.z = length / 2
-          line.rotation.z = 90 * DEG_TO_RAD
-          line.rotation.y = 90 * DEG_TO_RAD
+          line.rotation.z = degToRad(90)
+          line.rotation.y = degToRad(90)
           arrow.position.z = length
           arrow.rotation.z = line.rotation.z
           arrow.rotation.y = line.rotation.y * -1
@@ -57,7 +60,7 @@ $ ->
   buildAxis(scene)
   # Plane
   plane = new THREE.Mesh(new THREE.PlaneGeometry(w / 3, 200), new THREE.MeshBasicMaterial(color: 0x000000, opacity: 0.2))
-  plane.rotation.x = -90 * DEG_TO_RAD
+  plane.rotation.x = degToRad(-90)
   plane.overdraw = true
   scene.add(plane)
   # Renderer
@@ -67,20 +70,27 @@ $ ->
   # Add the renderer to dom
   $container = $("#container")
   $container.append(renderer.domElement)
+  # 
+  position =
+    x: 0
+    y: 45
+    r: 500
+  applyPosition = (position, camera, focus)->
+    # camera.position.x = position.r * Math.sin degToRad(position.x)
+    # camera.position.z = position.r * Math.sin degToRad(position.y)
+
+    camera.position.y = position.r * Math.sin degToRad(position.y)
+    camera.position.z = position.r * Math.cos degToRad(position.y)
+
+    camera.lookAt(focus.position) if focus
   # GUI
-  gui = new dat.GUI(name: 'Camera options')
-  position = gui.addFolder('Position');
-  position.add(camera.position, 'x', -500, 500)
-  position.add(camera.position, 'y', -500, 500)
-  position.add(camera.position, 'z', -500, 500)
-  position.open()
-  rotation = gui.addFolder('Rotation');
-  rotation.add(camera.rotation, 'x', -180 * DEG_TO_RAD, 180 * DEG_TO_RAD).step(1 * DEG_TO_RAD)
-  rotation.add(camera.rotation, 'y', -180 * DEG_TO_RAD, 180 * DEG_TO_RAD).step(1 * DEG_TO_RAD)
-  rotation.add(camera.rotation, 'z', -180 * DEG_TO_RAD, 180 * DEG_TO_RAD).step(1 * DEG_TO_RAD)
-  rotation.open()
+  gui = new dat.GUI()
+  gui.add(position, 'r', 100, 500).name('radius')
+  gui.add(position, 'x', -180, 180)
+  gui.add(position, 'y', 20, 90)
   # Update
   setInterval(-> 
+    applyPosition(position, camera, plane)
     renderer.render(scene, camera)
   , 1000 / 60)
   # WebSocket
