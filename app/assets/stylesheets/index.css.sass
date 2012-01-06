@@ -10,7 +10,6 @@
   src: url('/assets/fonts/PTSans-Bold.ttf')
 // Variables
 $inner_padding: 20px
-$duration: 0.4s
 // Layout
 body
   background-color: #e5e5e5
@@ -23,12 +22,11 @@ body
   height: 100%
 // Links
 a
-  +transition(all $duration ease-in-out)
   text-decoration: none
   &:link, &:active, &:visited
     color: #3c61d9
   &:hover, &:visited:hover
-    color: #ffffff
+    color: #253d87
   &:focus, &:active
     outline: none
 #main
@@ -51,43 +49,49 @@ a
   article
     color: #666
     font-weight: bold
-    margin: $inner_padding 0
+    margin: 40px 0
     width: 400px
     a
       text-decoration: underline
   nav
     ul
+      overflow: hidden
       li
         +border-radius(4px)
         +linear-gradient(#ffffff, #e6e6e6)
-        +transition(all $duration ease-in-out)
         border-bottom: 1px solid #bdbdbd
-        display: inline
+        display: block
+        float: left
         margin-right: 20px
         padding: 0 10px
         a
+          line-height: 1.8 !important
           border-style: none
           color: #666
           text-decoration: none
       li:hover
         +linear-gradient(#4f71dc, #3758c4)
-        +transition(all $duration ease-in-out)
         border-bottom-color: #2c48a1
         a
           color: #fff
-footer
-  bottom: 0
-  color: #999
-  position: absolute
-  width: 100%
-  z-index: 80
-  ul
+      li:active
+        +linear-gradient(#253d87, #3e55a0)
+        border-bottom-color: #334784
+  footer
+    bottom: 0
+    color: #999
+    position: absolute
     width: 100%
-    li
-      display: inline
-      &.help
-        float: right
-        font-family: "Courier New", Courier, monospace
+    z-index: 80
+    ul
+      width: 100%
+      li
+        display: inline
+        &.help
+          float: right
+          font-family: "Courier New", Courier, monospace
+        a
+          color: #666
 a.ribbon
   position: absolute
   right: 0
@@ -100,3 +104,8 @@ a.ribbon
   right: 0
   top: 0
   z-index: 10
+  p
+    position: absolute
+    top: 50%
+    text-align: center
+    width: 100%

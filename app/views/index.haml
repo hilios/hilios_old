@@ -2,10 +2,9 @@
   %script{:src => 'https://raw.github.com/mrdoob/stats.js/master/build/Stats.js'}
   :javascript
     var stats = new Stats();
-
     stats.domElement.style.position = 'absolute';
     stats.domElement.style.bottom = '0px';
-    stats.domElement.style.right = '0px';
+    stats.domElement.style.right = '50%';
 
     document.body.appendChild( stats.domElement );
 
@@ -20,18 +19,22 @@
       technologically beautifull 
   %article
     %p
-      Hello, im a 25 years old software engineer and web innovation expert with 10+ years of experience with the web from São Paulo, Brazil and i currently work @
+      Hello, im a 26 years old software engineer and web innovation expert with 10+ years of experience with the web from São Paulo, Brazil and i currently work @
       %a{:href => 'http://www.hotwords.com', :target => :blank} HOTWords
   %nav
     %ul
       %li
-        %a{:href => 'http://hilios.tumblr.com'} tumblr
+        %a{:href => '/blog'}
+          blog
       %li
-        %a{:href => 'http://www.linkedin.com/in/edsonhilios'} linked in
+        %a{:href => '/linkedin'}
+          linked in
       %li
-        %a{:href => 'https://github.com/hilios'} git hub
+        %a{:href => '/github'}
+          git hub
       %li
-        %a{:href => 'http://twitter.com/hilios'} twitter
+        %a{:href => '/twitter'}
+          twitter
   %footer
     %ul
       %li.help
@@ -43,4 +46,4 @@
 %a.ribbon{:href => 'http://github.com/hilios'}
   %img{:src => 'https://a248.e.akamai.net/assets.github.com/img/7afbc8b248c68eb468279e8c17986ad46549fb71/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67', :alt => 'Fork me on GitHub'}
 #container
-  
+  %p Loading...
