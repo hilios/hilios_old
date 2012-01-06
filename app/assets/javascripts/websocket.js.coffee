@@ -35,6 +35,7 @@ $ ->
   
   renderer = new THREE.CanvasRenderer()
   renderer.setSize(w, h)
+  renderer.render(scene, camera)
 
   $container.append(renderer.domElement)
 
