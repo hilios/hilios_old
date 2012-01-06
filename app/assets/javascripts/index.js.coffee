@@ -70,24 +70,22 @@ $ ->
   # Add the renderer to dom
   $container = $("#container")
   $container.append(renderer.domElement)
-  # 
+  # http://en.wikipedia.org/wiki/Geodetic_system
+  # http://en.wikipedia.org/wiki/Spherical_coordinates
   position =
-    x: 0
-    y: 45
-    r: 500
+    radius: 500
+    zenith: 0   # latitude (tetha)
+    azimuth: 45 # longitude (gamma/lambda)
   applyPosition = (position, camera, focus)->
-    # camera.position.x = position.r * Math.sin degToRad(position.x)
-    # camera.position.z = position.r * Math.sin degToRad(position.y)
-
-    camera.position.y = position.r * Math.sin degToRad(position.y)
-    camera.position.z = position.r * Math.cos degToRad(position.y)
-
+    camera.position.x = position.radius * Math.sin degToRad(position.zenith) * Math.cos degToRad(position.azimuth)
+    camera.position.y = position.radius * Math.cos degToRad(position.zenith) * Math.sin degToRad(position.azimuth)
+    camera.position.z = position.radius * Math.cos degToRad(position.azimuth)
     camera.lookAt(focus.position) if focus
   # GUI
   gui = new dat.GUI()
-  gui.add(position, 'r', 100, 500).name('radius')
-  gui.add(position, 'x', -180, 180)
-  gui.add(position, 'y', 20, 90)
+  gui.add(position, 'radius', 100, 500).name('radius')
+  gui.add(position, 'zenith', -180, 180)
+  gui.add(position, 'azimuth', 0, 180)
   # Update
   setInterval(-> 
     applyPosition(position, camera, plane)
