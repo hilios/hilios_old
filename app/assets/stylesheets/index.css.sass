@@ -34,15 +34,11 @@ a
   &:focus, &:active
     outline: none
 a.ribbon
-  display: none
-
   position: absolute
   right: 0
   top: 0
   z-index: 90
 #main
-  display: none
- 
   bottom: $inner_padding
   left: $inner_padding
   min-height: 540px
@@ -119,3 +115,9 @@ a.ribbon
   canvas
     height: 100%
     width: 100%
+// Debug mode
+body.debug
+  #main
+    opacity: 0.2
+  a.ribbon
+    display: none

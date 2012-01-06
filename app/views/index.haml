@@ -1,6 +1,9 @@
 - content_for :javascripts do
   / GUI
   %script{:src => '/assets/vendor/dat-gui/dat.gui.min.js'}
+  :javascript
+    $ ->
+      $(document.body).addClass('debug');
   / Stats
   %script{:src => 'https://raw.github.com/mrdoob/stats.js/master/build/Stats.js'}
   :javascript
@@ -42,7 +45,7 @@
     %ul
       %li.help
         %a{:href => '#'}
-          \-- help
+          \-- debug
       %li +1
       %li Tweet this!
       %li To see in action call some friends

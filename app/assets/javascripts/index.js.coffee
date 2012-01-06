@@ -83,7 +83,7 @@ $ ->
     camera.lookAt(focus.position) if focus
   # GUI
   gui = new dat.GUI()
-  gui.add(position, 'radius', 100, 500).name('radius')
+  gui.add(position, 'radius', 100, 500)
   gui.add(position, 'zenith', -180, 180)
   gui.add(position, 'azimuth', 0, 180)
   # Update
