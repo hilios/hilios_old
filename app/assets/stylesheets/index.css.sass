@@ -12,7 +12,11 @@
 $inner_padding: 20px
 // Layout
 body
-  background-color: #e5e5e5
+  background:
+    color: #e5e5e5
+    image: url('/assets/index_background.jpg')
+    position: center 0
+    repeat: no-repeat
   font:
     family: PTSans, Arial
     size: 15px
@@ -29,7 +33,16 @@ a
     color: #253d87
   &:focus, &:active
     outline: none
+a.ribbon
+  display: none
+
+  position: absolute
+  right: 0
+  top: 0
+  z-index: 90
 #main
+  display: none
+ 
   bottom: $inner_padding
   left: $inner_padding
   min-height: 540px
@@ -92,20 +105,17 @@ a
           font-family: "Courier New", Courier, monospace
         a
           color: #666
-a.ribbon
-  position: absolute
-  right: 0
-  top: 0
-  z-index: 90
 #container
   bottom: 0
   left: 0
   position: absolute
   right: 0
   top: 0
-  z-index: 10
   p
     position: absolute
     top: 50%
     text-align: center
+    width: 100%
+  canvas
+    height: 100%
     width: 100%
