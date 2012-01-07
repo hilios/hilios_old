@@ -17,9 +17,6 @@ $ ->
     far:        1000
   # Camera
   camera = new THREE.PerspectiveCamera(settings.viewAngle, settings.aspect, settings.near, settings.far)
-  camera.rotation.x = degToRad(-45)
-  camera.position.y = 300
-  camera.position.z = 300
   # Scene
   scene = new THREE.Scene()
   scene.add(camera)
@@ -73,21 +70,29 @@ $ ->
   # http://en.wikipedia.org/wiki/Geodetic_system
   # http://en.wikipedia.org/wiki/Spherical_coordinates
   position =
-    radius: 500
-    zenith: 0   # latitude (tetha)
-    azimuth: 45 # longitude (gamma/lambda)
+    radius: 300
+    zenith:  0    # latitude (tetha)
+    azimuth: 45   # longitude (gamma/lambda)
   applyPosition = (position, camera, focus)->
-    camera.position.x = position.radius * Math.sin degToRad(position.zenith) * Math.cos degToRad(position.azimuth)
-    camera.position.y = position.radius * Math.cos degToRad(position.zenith) * Math.sin degToRad(position.azimuth)
-    camera.position.z = position.radius * Math.cos degToRad(position.azimuth)
+    camera.position.x = position.radius * Math.sin(degToRad(position.zenith))
+    camera.position.y = position.radius * Math.sin(degToRad(position.azimuth))
+    camera.position.z = position.radius * Math.cos(degToRad(position.azimuth)) * Math.cos(degToRad(position.zenith))
     camera.lookAt(focus.position) if focus
   # GUI
   gui = new dat.GUI()
   gui.add(position, 'radius', 100, 500)
-  gui.add(position, 'zenith', -180, 180)
-  gui.add(position, 'azimuth', 0, 180)
+  gui.add(position, 'zenith',  -90, 90)
+  gui.add(position, 'azimuth', -90, 90)
+  camera = gui.addFolder('Camera')
+  cameraX = f.add(camera.position, 'x')
+  cameraY = f.add(camera.position, 'y')
+  cameraZ = f.add(camera.position, 'z')
+  f.open()
   # Update
   setInterval(-> 
+    cameraX.updateDisplay()
+    cameraY.updateDisplay()
+    cameraZ.updateDisplay()
     applyPosition(position, camera, plane)
     renderer.render(scene, camera)
   , 1000 / 60)

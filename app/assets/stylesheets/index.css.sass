@@ -116,7 +116,12 @@ a.ribbon
     height: 100%
     width: 100%
 // Debug mode
+.dg
+  display: none
 body.debug
+  .dg
+    display: block !important
+    z-index: 9999
   #main
     opacity: 0.2
   a.ribbon
