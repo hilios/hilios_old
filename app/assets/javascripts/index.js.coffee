@@ -69,31 +69,33 @@ $ ->
   $container.append(renderer.domElement)
   # http://en.wikipedia.org/wiki/Geodetic_system
   # http://en.wikipedia.org/wiki/Spherical_coordinates
-  position =
+  coord =
     radius: 300
     zenith:  0    # latitude (tetha)
     azimuth: 45   # longitude (gamma/lambda)
-  applyPosition = (position, camera, focus)->
-    camera.position.x = position.radius * Math.sin(degToRad(position.zenith))
-    camera.position.y = position.radius * Math.sin(degToRad(position.azimuth))
-    camera.position.z = position.radius * Math.cos(degToRad(position.azimuth)) * Math.cos(degToRad(position.zenith))
-    camera.lookAt(focus.position) if focus
+  applyPosition = (sphericalCoord, camera, focus)->
+    camera.position.x = sphericalCoord.radius * Math.sin(degToRad(sphericalCoord.zenith))
+    camera.position.y = sphericalCoord.radius * Math.sin(degToRad(sphericalCoord.azimuth))
+    camera.position.z = sphericalCoord.radius * Math.cos(degToRad(sphericalCoord.azimuth)) * Math.cos(degToRad(sphericalCoord.zenith))
+    camera.lookAt(focus) if focus
   # GUI
   gui = new dat.GUI()
-  gui.add(position, 'radius', 100, 500)
-  gui.add(position, 'zenith',  -90, 90)
-  gui.add(position, 'azimuth', -90, 90)
-  camera = gui.addFolder('Camera')
-  cameraX = f.add(camera.position, 'x')
-  cameraY = f.add(camera.position, 'y')
-  cameraZ = f.add(camera.position, 'z')
-  f.open()
+  gui.add(coord, 'radius', 100, 500)
+  gui.add(coord, 'zenith',  -90, 90)
+  gui.add(coord, 'azimuth', -90, 90)
+  # Camera position
+  cameraPosition = gui.addFolder('Camera position')
+  cameraPosition.open()
+  cameraPositionX = cameraPosition.add(camera.position, 'x')
+  cameraPositionY = cameraPosition.add(camera.position, 'y')
+  cameraPositionZ = cameraPosition.add(camera.position, 'z')
+  
   # Update
   setInterval(-> 
-    cameraX.updateDisplay()
-    cameraY.updateDisplay()
-    cameraZ.updateDisplay()
-    applyPosition(position, camera, plane)
+    cameraPositionX.updateDisplay()
+    cameraPositionY.updateDisplay()
+    cameraPositionZ.updateDisplay()
+    applyPosition(coord, camera, plane.position)
     renderer.render(scene, camera)
   , 1000 / 60)
   # WebSocket
