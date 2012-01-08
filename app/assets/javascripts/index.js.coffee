@@ -67,34 +67,40 @@ $ ->
   # Add the renderer to dom
   $container = $("#container")
   $container.append(renderer.domElement)
-  # http://en.wikipedia.org/wiki/Geodetic_system
   # http://en.wikipedia.org/wiki/Spherical_coordinates
   coord =
     radius: 300
-    zenith:  0    # latitude (tetha)
+    zenith:  0    # latitude  (tetha)
     azimuth: 45   # longitude (gamma/lambda)
   applyPosition = (sphericalCoord, camera, focus)->
-    camera.position.x = sphericalCoord.radius * Math.sin(degToRad(sphericalCoord.zenith))
+    camera.position.x = sphericalCoord.radius * Math.cos(degToRad(sphericalCoord.azimuth)) * Math.sin(degToRad(sphericalCoord.zenith))
     camera.position.y = sphericalCoord.radius * Math.sin(degToRad(sphericalCoord.azimuth))
     camera.position.z = sphericalCoord.radius * Math.cos(degToRad(sphericalCoord.azimuth)) * Math.cos(degToRad(sphericalCoord.zenith))
     camera.lookAt(focus) if focus
   # GUI
   gui = new dat.GUI()
   gui.add(coord, 'radius', 100, 500)
-  gui.add(coord, 'zenith',  -90, 90)
+  gui.add(coord, 'zenith',  -180, 180)
   gui.add(coord, 'azimuth', -90, 90)
   # Camera position
-  cameraPosition = gui.addFolder('Camera position')
+  cameraPosition  = gui.addFolder('Camera position')
   cameraPosition.open()
   cameraPositionX = cameraPosition.add(camera.position, 'x')
   cameraPositionY = cameraPosition.add(camera.position, 'y')
   cameraPositionZ = cameraPosition.add(camera.position, 'z')
-  
+  cameraRotation  = gui.addFolder('Camera rotation')
+  cameraRotation.open()
+  cameraRotationX = cameraRotation.add(camera.rotation, 'x')
+  cameraRotationY = cameraRotation.add(camera.rotation, 'y')
+  cameraRotationZ = cameraRotation.add(camera.rotation, 'z')
   # Update
   setInterval(-> 
     cameraPositionX.updateDisplay()
     cameraPositionY.updateDisplay()
     cameraPositionZ.updateDisplay()
+    cameraRotationX.updateDisplay()
+    cameraRotationY.updateDisplay()
+    cameraRotationZ.updateDisplay()
     applyPosition(coord, camera, plane.position)
     renderer.render(scene, camera)
   , 1000 / 60)
