@@ -15,6 +15,8 @@ GEM
       xpath (~> 0.1.4)
     childprocess (0.2.4)
       ffi (~> 1.0.6)
+    coffee-haml-filter (0.4.0)
+      haml
     coffee-script (2.2.0)
       coffee-script-source
       execjs
@@ -135,6 +137,7 @@ PLATFORMS
 
 DEPENDENCIES
   capybara
+  coffee-haml-filter
   coffee-script
   data_mapper
   database_cleaner

@@ -9,6 +9,7 @@ group :webapp do
   gem 'shotgun'
   gem 'sprockets'
   gem 'coffee-script'
+  gem 'coffee-haml-filter'
   gem 'sass'
   gem 'haml'
   gem 'unicorn'
