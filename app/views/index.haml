@@ -1,23 +1,23 @@
 - content_for :javascripts do
   / GUI
   %script{:src => '/assets/vendor/dat-gui/dat.gui.min.js'}
-  :javascript
-    $(function() {
-      $(document.body).addClass('debug');
-    });
+  :coffeescript
+    $ ->
+      $(document.body).addClass('debug')
   / Stats
-  / %script{:src => 'https://raw.github.com/mrdoob/stats.js/master/build/Stats.js'}
-  / :javascript
-  /   var stats = new Stats();
-  /   stats.domElement.style.position = 'absolute';
-  /   stats.domElement.style.bottom = '0px';
-  /   stats.domElement.style.right = '50%';
-  / 
-  /   document.body.appendChild( stats.domElement );
-  / 
-  /   setInterval(function() {
-  /     stats.update();
-  /   }, 1000 / 60);
+  %script{:src => 'https://raw.github.com/mrdoob/stats.js/master/build/Stats.js'}
+  :coffeescript
+    $ ->
+      stats = new Stats()
+      stats.domElement.style.position = 'absolute'
+      stats.domElement.style.bottom = '0px'
+      stats.domElement.style.right = '50%'
+    
+      setInterval(->
+        stats.update()
+      , 1000 / 60)
+
+      $(document.body).append(stats.domElement)
 #main
   %header
     %h1
