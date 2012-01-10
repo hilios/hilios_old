@@ -21,7 +21,7 @@ $ ->
   scene = new THREE.Scene()
   scene.add(camera)
   # Axis
-  buildAxis = (scene, length = 50, radius)->
+  buildAxis = (scene, length = 50, radius = 0.5)->
     # center = new THREE.Mesh(new THREE.SphereGeometry(1, 10, 10), new THREE.MeshBasicMaterial(color: 0x000000))
     # scene.add(center)
     build = (coordinate)->
@@ -69,27 +69,25 @@ $ ->
   $container.append(renderer.domElement)
   # http://en.wikipedia.org/wiki/Spherical_coordinates
   coord =
-    radius: 300
-    zenith:  0    # latitude  (tetha)
-    azimuth: 45   # longitude (gamma/lambda)
-  applyPosition = (sphericalCoord, camera, focus)->
-    camera.position.x = sphericalCoord.radius * Math.cos(degToRad(sphericalCoord.azimuth)) * Math.sin(degToRad(sphericalCoord.zenith))
-    camera.position.y = sphericalCoord.radius * Math.sin(degToRad(sphericalCoord.azimuth))
-    camera.position.z = sphericalCoord.radius * Math.cos(degToRad(sphericalCoord.azimuth)) * Math.cos(degToRad(sphericalCoord.zenith))
+    radius: 400
+    tetha:  0 # latitude  (zenith)
+    gamma: 45 # longitude (azimuth)
+  applyCoordToCamera = (sphericalCoord, camera, focus)->
+    camera.position.x = sphericalCoord.radius * Math.cos(degToRad(sphericalCoord.gamma)) * Math.sin(degToRad(sphericalCoord.tetha))
+    camera.position.y = sphericalCoord.radius * Math.sin(degToRad(sphericalCoord.gamma))
+    camera.position.z = sphericalCoord.radius * Math.cos(degToRad(sphericalCoord.gamma)) * Math.cos(degToRad(sphericalCoord.tetha))
     camera.lookAt(focus) if focus
   # GUI
   gui = new dat.GUI()
-  gui.add(coord, 'radius', 100, 500)
-  gui.add(coord, 'zenith',  -180, 180)
-  gui.add(coord, 'azimuth', -90, 90)
-  # Camera position
+  gui.add(coord, 'radius',  200, 600)
+  gui.add(coord, 'tetha',  -180, 180)
+  gui.add(coord, 'gamma',     0, 90)
+  # Camera properties
   cameraPosition  = gui.addFolder('Camera position')
-  cameraPosition.open()
   cameraPositionX = cameraPosition.add(camera.position, 'x')
   cameraPositionY = cameraPosition.add(camera.position, 'y')
   cameraPositionZ = cameraPosition.add(camera.position, 'z')
   cameraRotation  = gui.addFolder('Camera rotation')
-  cameraRotation.open()
   cameraRotationX = cameraRotation.add(camera.rotation, 'x')
   cameraRotationY = cameraRotation.add(camera.rotation, 'y')
   cameraRotationZ = cameraRotation.add(camera.rotation, 'z')
@@ -101,7 +99,7 @@ $ ->
     cameraRotationX.updateDisplay()
     cameraRotationY.updateDisplay()
     cameraRotationZ.updateDisplay()
-    applyPosition(coord, camera, plane.position)
+    applyCoordToCamera(coord, camera, plane.position)
     renderer.render(scene, camera)
   , 1000 / 60)
   # WebSocket
