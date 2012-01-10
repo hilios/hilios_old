@@ -4,6 +4,7 @@ require 'sprockets'
 require 'sinatra'
 require 'sinatra/contrib/all'
 require 'haml'
+require 'coffee-filter'
 # Enviroment settings
 enable :logging, :dump_errors
 disable :static
