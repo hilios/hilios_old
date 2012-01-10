@@ -3,7 +3,13 @@
   %script{:src => '/assets/vendor/dat-gui/dat.gui.min.js'}
   :javascript
     $(function() {
-      $(document.body).addClass('debug');
+      // 
+      $('a[data-debug]').click(function() {
+        var $this = $(this),
+            active = $this.data('debug');
+        active = !active;
+        $(document.body)[active ? 'removeClass' : 'addClass']('debug');
+      });
     });
   / Stats
   / %script{:src => 'https://raw.github.com/mrdoob/stats.js/master/build/Stats.js'}
@@ -22,7 +28,7 @@
   %header
     %h1
       edson.hilios
-    %p
+    %h2
       technologically beautifull 
   %article
     %p
@@ -44,8 +50,11 @@
           twitter
   %footer
     %ul
-      %li.help
-        %a{:href => '#'}
+      %li.right
+        %a{:href => '#', :'data-help' => false}
+          \-- help
+      %li.right
+        %a{:href => '#', :'data-debug' => true}
           \-- debug
       %li +1
       %li Tweet this!
