@@ -1,26 +1,24 @@
 - content_for :javascripts do
   / GUI
   %script{:src => '/assets/vendor/dat-gui/dat.gui.min.js'}
+  %script{:src => '/assets/vendor/stats.js'}
   :coffeescript
     $ ->
       $('a[data-debug]').click ->
-        $this = $(this)
-        active = $this.data('debug')
-        $(document.body)[active ? 'removeClass' : 'addClass']('debug');
-  / Stats
-  %script{:src => 'https://raw.github.com/mrdoob/stats.js/master/build/Stats.js'}
-  :coffeescript
-    $ ->
-      stats = new Stats()
-      stats.domElement.style.position = 'absolute'
-      stats.domElement.style.bottom = '0px'
-      stats.domElement.style.right = '50%'
-    
-      setInterval(->
-        stats.update()
-      , 1000 / 60)
+        $(this).hide()
+        
+        stats = new Stats()
+        stats.domElement.style.position = 'absolute'
+        stats.domElement.style.bottom = '0px'
+        stats.domElement.style.right = '51%'
 
-      $(document.body).append(stats.domElement)
+        setInterval(->
+          stats.update()
+        , 1000 / 60)
+
+        $(document.body).append(stats.domElement).addClass('debug')
+  / Stats
+  
 #main
   %header
     %h1
