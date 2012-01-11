@@ -3,4 +3,5 @@
 //= require vendor/jquery.gracefulWebSocket.js
 //= require vendor/three/custom/ThreeCanvas.js
 //= require vendor/three/custom/ThreeExtras.js
+//= require vendor/requestAnimationFrame.js
 //= require index.js.coffee
