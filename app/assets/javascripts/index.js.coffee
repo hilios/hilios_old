@@ -21,37 +21,32 @@ $ ->
   scene = new THREE.Scene()
   scene.add(camera)
   # Axis
-  buildAxis = (scene, length = 50, radius = 0.5)->
-    # center = new THREE.Mesh(new THREE.SphereGeometry(1, 10, 10), new THREE.MeshBasicMaterial(color: 0x000000))
-    # scene.add(center)
+  buildAxis = (scene, length = 50)->
     build = (coordinate)->
       colorMap =
         x: 0x00ffff # cyan
         y: 0xff00ff # magenta
         z: 0xffff00 # yellow
-      material  = new THREE.MeshBasicMaterial(color: colorMap[coordinate])
-      line      = new THREE.Mesh(new THREE.CylinderGeometry(.5, .5, length, 6, 1, false), material)
-      arrow     = new THREE.Mesh(new THREE.CylinderGeometry(2, 0, 4, 20, 10, false), material)
+      material = new THREE.LineBasicMaterial(color: colorMap[coordinate])
+      geometry = new THREE.Geometry()
       switch(coord)
         when 'x'
-          line.position.x = length / 2
-          line.rotation.z = degToRad(90)
-          arrow.position.x = length
-          arrow.rotation.z = line.rotation.z
+          geometry.vertices.push(
+            new THREE.Vertex(new THREE.Vector3(-length, 0, 0)),
+            new THREE.Vertex(new THREE.Vector3( length, 0, 0))
+          )
         when 'y'
-          line.position.y = length / 2
-          line.rotation.z = degToRad(180)
-          arrow.position.y = length
-          arrow.rotation.z = line.rotation.z
+          geometry.vertices.push(
+            new THREE.Vertex(new THREE.Vector3(0, -length, 0)),
+            new THREE.Vertex(new THREE.Vector3(0,  length, 0))
+          )
         when 'z'
-          line.position.z = length / 2
-          line.rotation.z = degToRad(90)
-          line.rotation.y = degToRad(90)
-          arrow.position.z = length
-          arrow.rotation.z = line.rotation.z
-          arrow.rotation.y = line.rotation.y * -1
+          geometry.vertices.push(
+            new THREE.Vertex(new THREE.Vector3(0, 0, -length)),
+            new THREE.Vertex(new THREE.Vector3(0, 0,  length))
+          )
+      line = new THREE.Line(geometry, material)
       scene.add(line)
-      scene.add(arrow)
     build coord for coord in ['x', 'y', 'z']
     null
   buildAxis(scene)
