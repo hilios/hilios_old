@@ -30,7 +30,7 @@ a
   &:link, &:active, &:visited
     color: #3c61d9
   &:hover, &:visited:hover
-    color: #253d87
+    color: #0000b3
   &:focus, &:active
     outline: none
 a.ribbon
@@ -55,14 +55,18 @@ a.ribbon
         size: 40px
         weight: bold
     h2
-      color: #999
+      color: #999999
   article
-    color: #666
+    color: #666666
     font-weight: bold
+    line-height: 1.6em
     margin: 40px 0
     width: 400px
     a
-      text-decoration: underline
+      &:link, &:active, &:visited
+        border-bottom: 3px solid #3c61d9
+      &:hover, &:visited:hover
+        border-bottom-color: #0000b3
   nav
     ul
       li
@@ -101,8 +105,10 @@ a.ribbon
         margin: 0 0 0 10px
         &.right
           float: right
-          font-family: "Courier New", Courier, monospace
-          margin: 0 10px 0 0
+          font:
+            family: "Courier New", Courier, monospace
+            size: 12px
+          margin: 0 0 0 10px
           opacity: 1 !important
         a
           color: #666

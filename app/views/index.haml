@@ -4,21 +4,25 @@
   %script{:src => '/assets/vendor/stats.js'}
   :coffeescript
     $ ->
+      # Stats
+      stats = new Stats()
+      stats.domElement.style.position = 'absolute'
+      stats.domElement.style.marginRight = '-40px'
+      stats.domElement.style.bottom = '0px'
+      stats.domElement.style.right = '50%'
+      update = 0
+      
       $('a[data-debug]').click ->
-        $(this).hide()
-        
-        stats = new Stats()
-        stats.domElement.style.position = 'absolute'
-        stats.domElement.style.bottom = '0px'
-        stats.domElement.style.right = '51%'
-
-        setInterval(->
-          stats.update()
-        , 1000 / 60)
-
-        $(document.body).append(stats.domElement).addClass('debug')
-  / Stats
-  
+        debug = Boolean $(this).data('debug')
+        $(this).data('debug', !debug)
+        if debug
+          $(document.body).append(stats.domElement).addClass('debug')
+          update = setInterval ->
+            stats.update()
+          , 1000 / 60
+        else
+          $(document.body).removeClass('debug')
+          $(stats.domElement).remove()
 #main
   %header
     %h1
@@ -46,10 +50,10 @@
   %footer
     %ul
       %li.right
-        %a{:href => '#', :'data-help' => false}
+        %a{:href => '#', :'data-help' => 0}
           \-- help
       %li.right
-        %a{:href => '#', :'data-debug' => true}
+        %a{:href => '#', :'data-debug' => 1}
           \-- debug
       %li +1
       %li Tweet this!

@@ -58,6 +58,7 @@ $ ->
   # Plane
   plane = new THREE.Mesh(new THREE.PlaneGeometry(w / 3, 200), new THREE.MeshBasicMaterial(color: 0x000000, opacity: 0.2))
   plane.rotation.x = degToRad(-90)
+  plane.doubleSided = true
   plane.overdraw = true
   scene.add(plane)
   # Renderer
@@ -81,7 +82,7 @@ $ ->
   gui = new dat.GUI()
   gui.add(coord, 'radius',  200, 600)
   gui.add(coord, 'tetha',  -180, 180)
-  gui.add(coord, 'gamma',     0, 90)
+  gui.add(coord, 'gamma',   -90, 90)
   # Camera properties
   cameraPosition  = gui.addFolder('Camera position')
   cameraPositionX = cameraPosition.add(camera.position, 'x')
