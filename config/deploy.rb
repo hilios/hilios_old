@@ -26,7 +26,7 @@ set(:current_revision)  { capture("cd #{current_path}; git rev-parse --short HEA
 set(:latest_revision)   { capture("cd #{current_path}; git rev-parse --short HEAD").strip }
 set(:previous_revision) { capture("cd #{current_path}; git rev-parse --short HEAD@{1}").strip }
 
-# default_environment["E"] = 'production'
+# default_environment["-E"] = 'production'
 
 # Use our ruby-1.9.2-p290@my_site gemset
 # default_environment["PATH"]         = "--"
@@ -45,9 +45,12 @@ namespace :deploy do
 
   desc "Setup your git-based deployment app"
   task :setup, :except => { :no_release => true } do
+    shared_children << "tmp"
+    shared_children << "tmp/sockets"
+
     dirs = [deploy_to, shared_path]
     dirs += shared_children.map { |d| File.join(shared_path, d) }
-    run "#{try_sudo} mkdir -p #{dirs.join(' ')} && #{try_sudo} chmod g+w #{dirs.join(' ')}"
+    run "#{try_sudo} mkdir -p #{dirs.join(' ')} && #{try_sudo} chmod -R g+w #{dirs.join(' ')}"
     run "#{shared_path}"
     run "git clone #{repository} #{current_path}"
   end
@@ -101,7 +104,7 @@ namespace :deploy do
 
   desc "Start unicorn"
   task :start, :except => { :no_release => true } do
-    run "cd #{current_path} ; bundle exec unicorn -c config/unicorn.rb -D"
+    run "cd #{current_path} ; bundle exec unicorn -c config/unicorn.rb -D -E production"
   end
 
   desc "Stop unicorn"
