@@ -45,8 +45,7 @@ namespace :deploy do
 
   desc "Setup your git-based deployment app"
   task :setup, :except => { :no_release => true } do
-    shared_children << "tmp"
-    shared_children << "tmp/sockets"
+    shared_children << "sockets" # Add the sockets folder
 
     dirs = [deploy_to, shared_path]
     dirs += shared_children.map { |d| File.join(shared_path, d) }
@@ -85,9 +84,10 @@ namespace :deploy do
       rm   -rf #{latest_release}/log #{latest_release}/public/system #{latest_release}/tmp/pids &&
       mkdir -p #{latest_release}/public &&
       mkdir -p #{latest_release}/tmp &&
-      ln    -s #{shared_path}/log #{latest_release}/log &&
-      ln    -s #{shared_path}/system #{latest_release}/public/system &&
-      ln    -s #{shared_path}/pids #{latest_release}/tmp/pids
+      ln    -s #{shared_path}/log     #{latest_release}/log &&
+      ln    -s #{shared_path}/system  #{latest_release}/public/system &&
+      ln    -s #{shared_path}/pids    #{latest_release}/tmp/pids
+      ln    -s #{shared_path}/sockets #{latest_release}/tmp/sockets
     CMD
 
     if fetch(:normalize_asset_timestamps, true)
