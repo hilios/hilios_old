@@ -1,4 +1,4 @@
-require ::File.expand_path('../sinatra',  __FILE__)
+require ::File.expand_path('../config/sinatra',  __FILE__)
 
 map '/assets' do
   run settings.sprockets
