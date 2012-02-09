@@ -18,15 +18,15 @@ role :web,            "hilios.com.br"
 role :app,            "hilios.com.br"
 role :db,             "hilios.com.br", :primary => true
 
-set(:latest_release)  { fetch(:current_path) }
-set(:release_path)    { fetch(:current_path) }
-set(:current_release) { fetch(:current_path) }
+set(:latest_release)    { fetch(:current_path) }
+set(:release_path)      { fetch(:current_path) }
+set(:current_release)   { fetch(:current_path) }
 
 set(:current_revision)  { capture("cd #{current_path}; git rev-parse --short HEAD").strip }
 set(:latest_revision)   { capture("cd #{current_path}; git rev-parse --short HEAD").strip }
 set(:previous_revision) { capture("cd #{current_path}; git rev-parse --short HEAD@{1}").strip }
 
-default_environment["ENV"] = 'production'
+# default_environment["E"] = 'production'
 
 # Use our ruby-1.9.2-p290@my_site gemset
 # default_environment["PATH"]         = "--"
@@ -51,11 +51,6 @@ namespace :deploy do
     run "git clone #{repository} #{current_path}"
   end
 
-  task :cold do
-    update
-    migrate
-  end
-
   task :update do
     transaction do
       update_code
@@ -73,7 +68,7 @@ namespace :deploy do
     transaction do
       update_code
     end
-    migrate
+    # migrate
     restart
   end
 
@@ -83,25 +78,24 @@ namespace :deploy do
     # mkdir -p is making sure that the directories are there for some SCM's that don't
     # save empty folders
     run <<-CMD
-      rm -rf #{latest_release}/log #{latest_release}/public/system #{latest_release}/tmp/pids &&
+      rm   -rf #{latest_release}/log #{latest_release}/public/system #{latest_release}/tmp/pids &&
       mkdir -p #{latest_release}/public &&
       mkdir -p #{latest_release}/tmp &&
-      ln -s #{shared_path}/log #{latest_release}/log &&
-      ln -s #{shared_path}/system #{latest_release}/public/system &&
-      ln -s #{shared_path}/pids #{latest_release}/tmp/pids &&
-      ln -sf #{shared_path}/database.yml #{latest_release}/config/database.yml
+      ln    -s #{shared_path}/log #{latest_release}/log &&
+      ln    -s #{shared_path}/system #{latest_release}/public/system &&
+      ln    -s #{shared_path}/pids #{latest_release}/tmp/pids
     CMD
 
     if fetch(:normalize_asset_timestamps, true)
       stamp = Time.now.utc.strftime("%Y%m%d%H%M.%S")
-      asset_paths = fetch(:public_children, %w(images stylesheets javascripts)).map { |p| "#{latest_release}/public/#{p}" }.join(" ")
+      asset_paths = %w(images css).map { |p| "#{latest_release}/public/#{p}" }.join(" ")
       run "find #{asset_paths} -exec touch -t #{stamp} {} ';'; true", :env => { "TZ" => "UTC" }
     end
   end
 
   desc "Zero-downtime restart of Unicorn"
   task :restart, :except => { :no_release => true } do
-    run "kill -s USR2 `cat #{shared_path}/tmp/pids/unicorn.pid`"
+    run "kill -USR2 `cat #{current_path}/tmp/pids/unicorn.pid`"
   end
 
   desc "Start unicorn"
@@ -111,7 +105,7 @@ namespace :deploy do
 
   desc "Stop unicorn"
   task :stop, :except => { :no_release => true } do
-    run "kill -s QUIT `cat #{shared_path}/tmp/pids/unicorn.pid`"
+    run "kill -s QUIT `cat #{current_path}/tmp/pids/unicorn.pid`"
   end  
 
   namespace :rollback do

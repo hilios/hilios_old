@@ -1,7 +1,7 @@
 # Set environment to development unless something else is specified
 env = ENV["ENV"] || "development"
 
-root_path = File.expand_path('../', File.dirname(__FILE__))
+root_path = File.expand_path('../../', File.dirname(__FILE__))
 shared_path = "#{root_path}/shared"
 
 # See http://unicorn.bogomips.org/Unicorn/Configurator.html for complete
@@ -20,7 +20,7 @@ timeout 30
 working_directory "#{root_path}/current"
 stderr_path       "#{shared_path}/log/error.log"
 stdout_path       "#{shared_path}/log/production.log"
-pid               "#{shared_path}/pids/unicorn.pid"
+pid               "#{shared_path}/tmp/pids/unicorn.pid"
 
 # combine Ruby 2.0.0dev or REE with "preload_app true" for memory savings
 preload_app true
