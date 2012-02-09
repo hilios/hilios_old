@@ -48,6 +48,7 @@ namespace :deploy do
     dirs = [deploy_to, shared_path]
     dirs += shared_children.map { |d| File.join(shared_path, d) }
     run "#{try_sudo} mkdir -p #{dirs.join(' ')} && #{try_sudo} chmod g+w #{dirs.join(' ')}"
+    run "#{shared_path}"
     run "git clone #{repository} #{current_path}"
   end
 
