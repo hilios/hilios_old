@@ -132,6 +132,21 @@ namespace :deploy do
   end
 end
 
+namespace :nginx do
+  task :start do
+    run "/etc/init.d/nginx start"
+  end
+
+  task :stop do
+    run "/etc/init.d/nginx stop"
+  end
+
+  task :restart do
+    stop
+    start
+  end
+end
+
 def run_rake(cmd)
   run "cd #{current_path}; #{rake} #{cmd}"
 end
