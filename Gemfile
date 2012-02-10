@@ -1,5 +1,6 @@
 source 'http://rubygems.org'
 gem 'rake'
+gem 'capistrano'
 
 group :webapp do
   gem 'i18n'

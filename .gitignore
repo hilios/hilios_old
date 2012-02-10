@@ -3,5 +3,6 @@
 .sass-cache
 db/*.sqlite3
 log/*.log
+pids/
 tmp/
 nohup.out
