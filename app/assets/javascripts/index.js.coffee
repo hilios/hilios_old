@@ -87,11 +87,11 @@ $ ->
   cameraRotationX = cameraRotation.add(camera.rotation, 'x')
   cameraRotationY = cameraRotation.add(camera.rotation, 'y')
   cameraRotationZ = cameraRotation.add(camera.rotation, 'z')
-  #
+  # Motion
   render = ->
     applyCoordToCamera(coord, camera, plane.position)
     renderer.render(scene, camera)
-    #
+    # Update display
     cameraPositionX.updateDisplay()
     cameraPositionY.updateDisplay()
     cameraPositionZ.updateDisplay()
@@ -102,15 +102,11 @@ $ ->
     requestAnimationFrame(animate)
     render()
   animate()
-  # Update
-  # setInterval(-> 
-
-  # , 1000 / 60)
   # WebSocket
   ws = $.gracefulWebSocket("ws://127.0.0.0:8888")
   ws.onmessage = (event)->
     null
-
+  # Browser events
   $(document).mousemove (event)->
     x = event.pageX
     y = event.pageY
