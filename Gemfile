@@ -21,6 +21,7 @@ group :websocket do
 end
 
 group :test do
+  gem 'cucumber-sinatra'
   gem 'rspec'
   gem 'launchy'
   gem 'capybara'
@@ -28,4 +29,5 @@ group :test do
   gem 'shoulda-matchers'
   gem 'database_cleaner'
   gem 'factory_girl'
+  gem 'pretty'
 end
