@@ -1,7 +1,7 @@
 Feature: Navigation
-  In order to be able navigate through all my info
-  As a common user of the site
-  I want that all links are ok
+  In order have a good user experience
+  As a guest
+  I want that all links are working
   
   Scenario: Click on all links on the page and sub-pages
     Given I am on the homepage
