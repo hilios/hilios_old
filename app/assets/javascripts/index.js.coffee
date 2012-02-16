@@ -5,10 +5,12 @@ $ ->
   getAngle = (x, y)->
     Math.tan(y / x)
   # User variables
-  x = 0
-  y = 0
-  w = $(window).width()
-  h = $(window).height()
+  x  = 0
+  y  = 0
+  w  = 0
+  h  = 0
+  pW = 0
+  pH = 0
   # Camera settings
   settings = 
     viewAngle:  45
@@ -69,10 +71,17 @@ $ ->
     tetha:  0 # latitude  (zenith)
     gamma: 45 # longitude (azimuth)
   applyCoordToCamera = (sphericalCoord, camera, focus)->
-    camera.position.x = sphericalCoord.radius * Math.cos(degToRad(sphericalCoord.gamma)) * Math.sin(degToRad(sphericalCoord.tetha))
-    camera.position.y = sphericalCoord.radius * Math.sin(degToRad(sphericalCoord.gamma))
-    camera.position.z = sphericalCoord.radius * Math.cos(degToRad(sphericalCoord.gamma)) * Math.cos(degToRad(sphericalCoord.tetha))
+    a = 5
+    x = sphericalCoord.radius * Math.cos(degToRad(sphericalCoord.gamma)) * Math.sin(degToRad(sphericalCoord.tetha))
+    y = sphericalCoord.radius * Math.sin(degToRad(sphericalCoord.gamma))
+    z = sphericalCoord.radius * Math.cos(degToRad(sphericalCoord.gamma)) * Math.cos(degToRad(sphericalCoord.tetha))
+    
+    camera.position.x = (camera.position.x - x) / a
+    camera.position.y = (camera.position.y - y) / a
+    camera.position.z = (camera.position.z - z) / a
     camera.lookAt(focus) if focus
+    
+    console.log(camera.position.x, camera.position.y, camera.position.z)
   # GUI
   gui = new dat.GUI()
   gui.add(coord, 'radius',  200, 600)
@@ -108,5 +117,11 @@ $ ->
     null
   # Browser events
   $(document).mousemove (event)->
-    x = event.pageX
-    y = event.pageY
+    w  = $(window).width()
+    h  = $(window).height()
+    x  = event.pageX
+    y  = event.pageY
+    pW = x / w
+    pH = y / h
+    coord.tetha =  0 + (-10 + 20 * pW)
+    coord.gamma = 45 + (-10 + 20 * pH)
