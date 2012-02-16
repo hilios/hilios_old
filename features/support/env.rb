@@ -2,7 +2,7 @@
 
 ENV['RACK_ENV'] = 'test'
 
-require File.join(File.dirname(__FILE__), '..', '..', 'sinatra.rb')
+require File.expand_path('../../config/sinatra.rb', File.dirname(__FILE__))
 
 require 'capybara'
 require 'capybara/cucumber'

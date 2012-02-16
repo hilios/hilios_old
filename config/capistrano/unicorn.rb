@@ -18,10 +18,8 @@ namespace :unicorn do
     CMD
   end
 
-  desc "Starts the Unicorn server"
+  desc "Start Unicorn server"
   task :start do
-    run "mkdir -p #{File.dirname(pid_path)}"
-    run "mkdir -p #{File.dirname(socket_path)}"
     run <<-CMD
       if [ ! -s #{pid_path} ]; then
         cd #{current_path} ; bundle exec unicorn -c #{current_path}/config/unicorn.rb -D -E production;
@@ -31,7 +29,7 @@ namespace :unicorn do
     CMD
   end
 
-  desc "Stops Unicorn server"
+  desc "Stop Unicorn server"
   task :stop do
     check_pid_path_then_run "kill -s QUIT `cat #{pid_path}`;"
   end
