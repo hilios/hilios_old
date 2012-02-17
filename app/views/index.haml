@@ -1,28 +1,3 @@
-- content_for :javascripts do
-  / GUI
-  %script{:src => '/assets/vendor/dat-gui/dat.gui.min.js'}
-  %script{:src => '/assets/vendor/stats.js'}
-  :coffeescript
-    $ ->
-      # Stats
-      stats = new Stats()
-      stats.domElement.style.position = 'absolute'
-      stats.domElement.style.marginRight = '-40px'
-      stats.domElement.style.bottom = '0px'
-      stats.domElement.style.right = '50%'
-      update = 0
-      
-      $('a[data-debug]').click ->
-        debug = Boolean $(this).data('debug')
-        $(this).data('debug', !debug)
-        if debug
-          $(document.body).append(stats.domElement).addClass('debug')
-          update = setInterval ->
-            stats.update()
-          , 1000 / 60
-        else
-          $(document.body).removeClass('debug')
-          $(stats.domElement).remove()
 #main
   %header
     %h1
