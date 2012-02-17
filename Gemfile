@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 gem 'rake'
 gem 'capistrano'
-gem 'capistrano_color'
+gem 'capistrano_colors'
 
 group :webapp do
   gem 'i18n'
