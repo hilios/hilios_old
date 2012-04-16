@@ -1,13 +1,6 @@
 @import 'mixins/css3'
 // Importing fonts
-@font-face
-  font-family: PTSans
-  src: url('/assets/fonts/PTSans-Regular.ttf')
-@font-face
-  font:
-    family: PTSans
-    weight: bold
-  src: url('/assets/fonts/PTSans-Bold.ttf')
+@import 'fonts/ptsans'
 // Variables
 $inner_padding: 20px
 // Layout
@@ -77,19 +70,19 @@ a.ribbon
         float: left
         margin-right: 20px
         padding: 0 10px
+        line-height: 2em !important
         a
-          line-height: 1.8 !important
           border-style: none
           color: #666
           text-decoration: none
       li:hover
-        +box-shadow(0, 0, 10px, #999)
+        +box-shadow(0, 0, 5px, #ddd)
         +linear-gradient(#4f71dc, #3758c4)
         border-bottom-color: #2c48a1
         a
           color: #fff
       li:active
-        +box-shadow(0, 0, 5px, #666)
+        +box-shadow(0, 0, 5px, #bbb)
         +linear-gradient(#253d87, #3e55a0)
         border-bottom-color: #334784
   footer

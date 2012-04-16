@@ -1,6 +1,7 @@
 source 'http://rubygems.org'
 gem 'rake'
 gem 'capistrano'
+gem 'capistrano_colors'
 
 group :webapp do
   gem 'i18n'
@@ -25,8 +26,10 @@ group :test do
   gem 'rspec'
   gem 'launchy'
   gem 'capybara'
-  # gem 'capybara-webkit'
+  gem 'cucumber'
+  gem 'cucumber-sinatra'
   gem 'shoulda-matchers'
   gem 'database_cleaner'
   gem 'factory_girl'
+  gem 'pretty'
 end
