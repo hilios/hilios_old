@@ -5,9 +5,9 @@
     - title = yield_content(:title)
     - title = '%s' if title.empty?
     %title= title % 'edson.hilios'
-    %link{:rel => 'stylesheet', :type => 'text/css', :href => asset_path('application.css')}
+    = stylesheet :application
     = yield_content(:stylesheets)
   %body
     = yield
-    %script{:src => asset_path('application.js')}
+    = javascript :application
     = yield_content(:javascripts)

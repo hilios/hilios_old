@@ -10,7 +10,6 @@ group :application do
   gem 'data_mapper'
   gem 'shotgun'
   gem 'sprockets'
-  gem 'sinatra-simple-assets'
   gem 'coffee-script'
   gem 'coffee-filter'
   gem 'sass'
