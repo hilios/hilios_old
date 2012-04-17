@@ -1,9 +1,14 @@
+# Add RVM's lib directory to the load path.
+$:.unshift(File.expand_path('./lib', ENV['rvm_path']))
+
+# Load RVM's capistrano plugin.    
+require "rvm/capistrano"
 # config/deploy.rb 
 require "bundler/capistrano"
 
 set :scm,             :git
 set :repository,      "git@github.com:hilios/hilios.git"
-set :branch,          "origin/master"
+set :branch,          "master"
 set :migrate_target,  :current
 set :ssh_options,     { :forward_agent => true }
 set :deploy_to,       "/var/rails/hilios"
@@ -16,5 +21,12 @@ role :web,            "hilios.com.br"
 role :app,            "hilios.com.br"
 role :db,             "hilios.com.br", :primary => true
 
-Dir["./config/capistrano/**/*.rb"].each { |f| require f }
+# Dir["./config/capistrano/**/*.rb"].each { |f| require f }
 
+namespace :rvm do
+  task :trust_rvmrc do
+    run "rvm rvmrc trust \#\{release_path\}"
+  end
+end
+
+after "deploy", "rvm:trust_rvmrc"

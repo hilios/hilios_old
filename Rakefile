@@ -1,7 +1,16 @@
-require 'rubygems'
-require 'cucumber/rake/task'
-require 'rspec/core/rake_task'
-require 'sprockets/rake/sprocketstask'
+#!/usr/bin/env rake
+begin
+  require 'bundler/setup'
+rescue LoadError
+  puts 'You must `gem install bundler` and `bundle install` to run rake tasks'
+end
+begin
+  require 'rdoc/task'
+rescue LoadError
+  require 'rdoc/rdoc'
+  require 'rake/rdoctask'
+  RDoc::Task = Rake::RDocTask
+end
 
 task :environment do
   require ::File.expand_path('../sinatra',  __FILE__)
@@ -12,11 +21,6 @@ RSpec::Core::RakeTask.new(:spec) do |task|
   task.pattern    = 'spec/**/*_spec.rb'
 end
 
-Rake::SprocketsTask.new do |t|
-  t.environment = Sprockets::Environment.new
-  t.keep        = 2
-  t.output      = "./public/assets"
-  t.assets      = %w( application.js application.css )
-end
-
 task :default => [:cucumber, :spec]
+
+Bundler::GemHelper.install_tasks

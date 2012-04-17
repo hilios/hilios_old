@@ -3,13 +3,14 @@ gem 'rake'
 gem 'capistrano'
 gem 'capistrano_colors'
 
-group :webapp do
+group :application do
   gem 'i18n'
   gem 'sinatra'
   gem 'sinatra-contrib' 
   gem 'data_mapper'
   gem 'shotgun'
   gem 'sprockets'
+  gem 'sinatra-simple-assets'
   gem 'coffee-script'
   gem 'coffee-filter'
   gem 'sass'
