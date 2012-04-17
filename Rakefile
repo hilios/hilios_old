@@ -18,7 +18,7 @@ end
 # require 'rspec'
 
 task :environment do
-  require ::File.expand_path('../sinatra',  __FILE__)
+  require ::File.expand_path('../config/sinatra',  __FILE__)
 end
 
 # RSpec::Core::RakeTask.new(:spec) do |task|
@@ -30,7 +30,20 @@ end
 
 namespace :assets do
   desc 'Precompile assets'
-  task :precompile do; end
+  task :precompile => [:clean_all] do
+    settings.sprockets.each_file do |path|
+      asset = settings.sprockets.find_asset(path)
+      asset.write_to(assets_path.join(asset.digest_path))
+    end
+  end
+
+  task :clean_all => [:environment] do
+    Dir[assets_path.join('*')].each { |file| FileUtils.rm_rf(file) }
+  end
+
+  def assets_path
+    @assets_path ||= ::Pathname.new(settings.public_folder).join("assets")
+  end
 end
 
 namespace :db do
