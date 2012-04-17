@@ -84,7 +84,8 @@ $ ->
   $(document).mousemove (event)->
     percentageWidth  = event.pageX / windowWidth
     percentageHeight = event.pageY / windowHeight
-    coord.tetha =  0 + (-15 + 30 * pW)
-    coord.gamma = 45 + (-15 + 30 * pH)
+    
+    sphericalCoordinates.tetha =  0 + (-15 + 30 * percentageWidth)
+    sphericalCoordinates.gamma = 45 + (-15 + 30 * percentageHeight)
     # Continue the event chain
     true
