@@ -10,6 +10,7 @@ group :application do
   gem 'data_mapper'
   gem 'shotgun'
   gem 'sprockets'
+  gem 'sprockets-helpers'
   gem 'coffee-script'
   gem 'coffee-filter'
   gem 'sass'
