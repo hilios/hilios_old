@@ -15,6 +15,7 @@ group :application do
   gem 'sass'
   gem 'haml'
   gem 'unicorn'
+  gem 'therubyracer'
 end
 
 group :websocket do
