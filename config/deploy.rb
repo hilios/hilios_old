@@ -4,7 +4,9 @@ require "bundler/capistrano"
 set :scm,             :git
 set :repository,      "git@github.com:hilios/hilios.git"
 set :branch,          "origin/master"
-set :deploy_to,       "/var/rapp/hilios"
+set :migrate_target,  :current
+set :ssh_options,     { :forward_agent => true }
+set :deploy_to,       "/var/rails/hilios"
 set :git_shallow_clone, 1
 
 set :user,            "root"
