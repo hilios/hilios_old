@@ -24,9 +24,10 @@ configure do
   set :session_secret, '1Gikx4OTdoQp9OLjxfK76NBm065IzPkYTAirE8iUT5wgXAIW30dbjxOr5riSvRrKEQ7JxDsk7Kfz363Vif2erbgSZt3Xjh6hs8ZX8cO6X0ntzYYhgYzUmedQG8WielBh'
   # Sprockets
   sprockets = Sprockets::Environment.new
-  sprockets.append_path 'app/assets/javascripts'
-  sprockets.append_path 'app/assets/stylesheets'
-  sprockets.append_path 'app/assets/images'
+  Dir['app/assets/*'].each { |path| sprockets.append_path(path) }
+  # sprockets.append_path 'app/assets/javascripts'
+  # sprockets.append_path 'app/assets/stylesheets'
+  # sprockets.append_path 'app/assets/images'
   set :sprockets, sprockets
 
   # Configure Sprockets::Helpers

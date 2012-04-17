@@ -1,13 +1,26 @@
 @import 'mixins/css3'
 // Importing fonts
-@import 'fonts/ptsans'
+@font-face
+  font:
+    family: 'PTSans'
+    weight: normal
+    style: normal
+  src: url("<%= asset_path('ptsans-regular-webfont.eot') %>")
+  src: url("<%= asset_path('ptsans-regular-webfont.eot?#iefix') %>") format('embedded-opentype'), url("<%= asset_path('ptsans-regular-webfont.woff') %>") format('woff'), url("<%= asset_path('ptsans-regular-webfont.ttf') %>") format('truetype'), url("<%= asset_path('ptsans-regular-webfont.svg#PTSansRegular') %>") format('svg')
+@font-face
+  font:
+    family: 'PTSans'
+    weight: bold
+    style: normal
+  src: url("<%= asset_path('ptsans-bold-webfont.eot') %>")
+  src: url("<%= asset_path('ptsans-bold-webfont.eot?#iefix') %>") format('embedded-opentype'), url("<%= asset_path('ptsans-bold-webfont.woff') %>") format('woff'), url("<%= asset_path('ptsans-bold-webfont.ttf') %>") format('truetype'), url("<%= asset_path('ptsans-bold-webfont.svg#PTSansBold') %>") format('svg')
 // Variables
 $inner_padding: 20px
 // Layout
 body
   background:
     color: #e5e5e5
-    image: url('/assets/index_background.jpg')
+    image: url("<%= image_path 'index_background.jpg' %>")
     position: center 0
     repeat: no-repeat
   font:
