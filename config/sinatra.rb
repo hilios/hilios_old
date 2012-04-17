@@ -1,8 +1,8 @@
 require 'rubygems'
 require 'bundler/setup'
 require 'sinatra'
-require 'sinatra/simple_assets'
 require 'sinatra/contrib/all'
+require 'sinatra/simple_assets'
 require 'haml'
 require 'coffee-filter'
 

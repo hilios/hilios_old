@@ -23,4 +23,11 @@ end
 
 task :default => [:cucumber, :spec]
 
+namespace :assets do
+  desc 'Precompile assets'
+  task :precompile do
+   Sinatra::Application.assets.precompile
+  end
+end
+
 Bundler::GemHelper.install_tasks
