@@ -5,6 +5,8 @@ rescue LoadError
   puts 'You must `gem install bundler` and `bundle install` to run rake tasks'
 end
 
+# Bundler::GemHelper.install_tasks
+
 # begin
 #   require 'rdoc/task'
 # rescue LoadError
@@ -28,8 +30,9 @@ end
 
 namespace :assets do
   desc 'Precompile assets'
-  task :precompile do
-  end
+  task :precompile do; end
 end
 
-# Bundler::GemHelper.install_tasks
+namespace :db do
+  task :migrate do; end
+end
