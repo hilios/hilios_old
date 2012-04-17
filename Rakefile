@@ -12,6 +12,8 @@ rescue LoadError
   RDoc::Task = Rake::RDocTask
 end
 
+require 'rspec'
+
 task :environment do
   require ::File.expand_path('../sinatra',  __FILE__)
 end
@@ -26,7 +28,6 @@ task :default => [:cucumber, :spec]
 namespace :assets do
   desc 'Precompile assets'
   task :precompile do
-   Sinatra::Application.assets.precompile
   end
 end
 
