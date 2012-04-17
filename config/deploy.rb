@@ -21,12 +21,6 @@ role :web,            "hilios.com.br"
 role :app,            "hilios.com.br"
 role :db,             "hilios.com.br", :primary => true
 
-# Dir["./config/capistrano/**/*.rb"].each { |f| require f }
-
-namespace :rvm do
-  task :trust_rvmrc do
-    run "rvm rvmrc trust \#\{release_path\}"
-  end
+instance_eval do
+  Dir["./config/capistrano/**/*.rb"].each { |f| load f }
 end
-
-after "deploy", "rvm:trust_rvmrc"
