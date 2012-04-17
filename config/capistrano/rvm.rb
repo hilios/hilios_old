@@ -4,4 +4,4 @@ namespace :rvm do
   end
 end
 
-after "deploy", "rvm:trust_rvmrc"
+before "bundle:install", "rvm:trust_rvmrc"
