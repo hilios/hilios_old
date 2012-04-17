@@ -7,7 +7,7 @@ require 'haml'
 require 'coffee-filter'
 
 # Enviroment settings
-enable :logging, :dump_errors
+enable :logging, :dump_errors, :show_exceptions
 disable :static
 # View settings
 set :views, 'app/views'
