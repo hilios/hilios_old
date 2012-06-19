@@ -1,27 +1,29 @@
 source 'http://rubygems.org'
 gem 'rake'
-gem 'capistrano'
-gem 'capistrano_colors'
+# Web app
+gem 'i18n'
+gem 'sinatra'
+gem 'sinatra-contrib' 
+gem 'data_mapper'
+gem 'shotgun'
+gem 'sprockets'
+gem 'sprockets-helpers'
+gem 'coffee-script'
+gem 'coffee-filter'
+gem 'sass'
+gem 'haml'
+gem 'unicorn'
+gem 'therubyracer'
+# Websocker
+gem 'eventmachine'
+gem 'em-websocket'
 
-group :application do
-  gem 'i18n'
-  gem 'sinatra'
-  gem 'sinatra-contrib' 
-  gem 'data_mapper'
-  gem 'shotgun'
-  gem 'sprockets'
-  gem 'sprockets-helpers'
-  gem 'coffee-script'
-  gem 'coffee-filter'
-  gem 'sass'
-  gem 'haml'
-  gem 'unicorn'
-  gem 'therubyracer'
-end
-
-group :websocket do
-  gem 'eventmachine'
-  gem 'em-websocket'
+group :development do
+  # Deploy with Capistrano
+  gem 'capistrano'
+  gem 'capistrano-unicorn'
+  gem 'rvm-capistrano'
+  gem 'capistrano_colors'
 end
 
 group :test do
