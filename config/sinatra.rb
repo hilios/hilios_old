@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'bundler/setup'
-# WebServer
+# Web application
 require 'sinatra'
 require 'sinatra/contrib/all'
 # Assets pipeline
@@ -32,7 +32,7 @@ configure do
     config.environment = sprockets
     config.digest      = false
     # Change the assets prefix on production
-    if ENV['RACK_ENV'] == "production"
+    if settings.environment == :production
       config.compile    = true
       config.compress   = true
       config.prefix     = 'http://cdn.hilios.com.br/assets'
@@ -61,4 +61,4 @@ configure do
 end
 
 # Load all files from my app
-Dir["./app/**/*.rb"].each { |f| require f }
+Dir["./app/**/*.rb"].each { |f| self.send :require, f }
