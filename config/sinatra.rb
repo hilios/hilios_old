@@ -23,19 +23,21 @@ configure do
   enable :sessions
   set :session_secret, '1Gikx4OTdoQp9OLjxfK76NBm065IzPkYTAirE8iUT5wgXAIW30dbjxOr5riSvRrKEQ7JxDsk7Kfz363Vif2erbgSZt3Xjh6hs8ZX8cO6X0ntzYYhgYzUmedQG8WielBh'
   # Sprockets
-  sprockets = Sprockets::Environment.new
-  set :sprockets, sprockets
+  sprockets = Sprockets::Environment.new(settings.root)
+  set :sprockets,     sprockets
   # Include assets folder
   Dir['app/assets/*'].each { |path| sprockets.append_path(path) }
+  set :precompile,    [ /\w+\.(?!js|css).+/, /application.(css|js)$/ ]
   # Configure Sprockets::Helpers
   Sprockets::Helpers.configure do |config|
     config.environment = sprockets
-    config.manifest    = Sprockets::Manifest.new(sprockets, '/var/ruby/hilios/shared/assets/manifset.json')
-    # Change the assets prefix on production
-    if settings.environment == :production
-      config.prefix     = 'http://cdn.hilios.com.br/assets'
-      config.digest     = true
-    end
+    config.prefix      = '/assets'
+    # config.prefix      = settings.environment == :production ? 'http://cdn.hilios.com.br/assets' : '/assets'
+    config.digest      = true
+  end
+  # Include Sprockets helpers
+  helpers do
+    include Sprockets::Helpers
   end
   # Middlewares
   use Rack::Session::Pool, :expire_after => 2592000
