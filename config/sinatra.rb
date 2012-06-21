@@ -29,10 +29,13 @@ configure do
   Dir['app/assets/*'].each { |path| sprockets.append_path(path) }
   # Configure Sprockets::Helpers
   Sprockets::Helpers.configure do |config|
-   config.environment = sprockets
-   config.manifest    = Sprockets::Manifest.new(sprockets, '/var/ruby/hilios/shared/assets/manifset.json')
-   # Change the assets prefix on production
-   config.prefix     = 'http://cdn.hilios.com.br/assets' if settings.environment == :production
+    config.environment = sprockets
+    config.manifest    = Sprockets::Manifest.new(sprockets, '/var/ruby/hilios/shared/assets/manifset.json')
+    # Change the assets prefix on production
+    if settings.environment == :production
+      config.prefix     = 'http://cdn.hilios.com.br/assets'
+      config.digest     = true
+    end
   end
   # Middlewares
   use Rack::Session::Pool, :expire_after => 2592000
