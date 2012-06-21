@@ -30,9 +30,25 @@ configure do
   # Configure Sprockets::Helpers
   Sprockets::Helpers.configure do |config|
     config.environment = sprockets
-    config.digest      = true
     # Change the assets prefix on production
-    config.prefix = 'http://cdn.hilios.com.br/assets' if ENV['RACK_ENV'] == "production"
+    if ENV['RACK_ENV'] == "production"
+      config.digest     = true
+      config.compile    = true
+      config.compress   = true
+      config.prefix     = 'http://cdn.hilios.com.br/assets'
+      config.manifest_path = "public/assets"
+      # :digest => true, 
+      # :debug => false, 
+      # :compile => false, 
+      # :compress => true,
+      # :prefix => "assets", 
+      # :host => nil, 
+      # :relative_url_root => ENV['RACK_RELATIVE_URL_ROOT'],
+      # :precompile => [ /\w+\.(?!js|css).+/, /application.(css|js)$/ ], 
+      # :manifest_path => "public/assets",
+      # :app => nil
+      
+    end
   end
 
   helpers do
