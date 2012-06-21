@@ -30,6 +30,7 @@ configure do
   # Configure Sprockets::Helpers
   Sprockets::Helpers.configure do |config|
    config.environment = sprockets
+   config.manifest    = Sprockets::Manifest.new(sprockets, '/var/ruby/hilios/shared/assets/manifset.json')
    # Change the assets prefix on production
    config.prefix     = 'http://cdn.hilios.com.br/assets' if settings.environment == :production
   end
