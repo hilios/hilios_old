@@ -25,36 +25,14 @@ configure do
   # Sprockets
   sprockets = Sprockets::Environment.new
   set :sprockets, sprockets
-  # Load all assets
+  # Include assets folder
   Dir['app/assets/*'].each { |path| sprockets.append_path(path) }
   # Configure Sprockets::Helpers
   Sprockets::Helpers.configure do |config|
-    config.environment = sprockets
-    config.digest      = false
-    # Change the assets prefix on production
-    if settings.environment == :production
-      # config.compile    = true
-      # config.compress   = true
-      # config.prefix     = 'http://cdn.hilios.com.br/assets'
-      # config.manifest_path = "public/assets"
-      # :digest => true, 
-      # :debug => false, 
-      # :compile => false, 
-      # :compress => true,
-      # :prefix => "assets", 
-      # :host => nil, 
-      # :relative_url_root => ENV['RACK_RELATIVE_URL_ROOT'],
-      # :precompile => [ /\w+\.(?!js|css).+/, /application.(css|js)$/ ], 
-      # :manifest_path => "public/assets",
-      # :app => nil
-      
-    end
+   config.environment = sprockets
+   # Change the assets prefix on production
+   config.prefix     = 'http://cdn.hilios.com.br/assets' if settings.environment == :production
   end
-
-  helpers do
-    include Sprockets::Helpers
-  end
-
   # Middlewares
   use Rack::Session::Pool, :expire_after => 2592000
   use Rack::ShowExceptions

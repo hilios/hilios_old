@@ -5,9 +5,9 @@
     - title = yield_content(:title)
     - title = '%s' if title.empty?
     %title= title % 'Edson Hilios'
-    = stylesheet :application
+    = stylesheet 'application.css'
     = yield_content(:stylesheets)
   %body
     = yield
-    = javascript :application
+    = javascript 'application.js'
     = yield_content(:javascripts)
