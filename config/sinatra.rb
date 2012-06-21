@@ -35,8 +35,8 @@ configure do
     if settings.environment == :production
       config.compile    = true
       config.compress   = true
-      config.prefix     = 'http://cdn.hilios.com.br/assets'
-      config.manifest_path = "public/assets"
+      # config.prefix     = 'http://cdn.hilios.com.br/assets'
+      # config.manifest_path = "public/assets"
       # :digest => true, 
       # :debug => false, 
       # :compile => false, 
